@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTENNAR - RF-DC MID Manufacturing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: #1a1a1a;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e2e8f0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0f172a;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #0f172a;
+        }
+        
+        .hero {
+            padding: 140px 0 100px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            color: #cbd5e1;
+            font-weight: 400;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid #3b82f6;
+        }
+        
+        .cta-button:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .section {
+            padding: 120px 0;
+            background: white;
+        }
+        
+        .section:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .section h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            color: #0f172a;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 3rem;
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+        
+        .card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+        }
+        
+        .card p {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .process-step {
+            background: #0f172a;
+            color: white;
+            padding: 3rem;
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            background: #3b82f6;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        
+        .technical-section {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .technical-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #60a5fa;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+        
+        .applications-section {
+            padding: 120px 0;
+            background: white;
+        }
+        
+        .application-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 3rem;
+            height: 100%;
+        }
+        
+        .application-card h3 {
+            color: #3b82f6;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .application-card .subtitle {
+            color: #0f172a;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .application-card ul {
+            list-style: none;
+            margin-top: 2rem;
+        }
+        
+        .application-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            color: #475569;
+        }
+        
+        .application-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .contact {
+            background: #0f172a;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+        }
+        
+        .contact h2 {
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+        
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .contact-card h3 {
+            color: #60a5fa;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section h2 {
+                font-size: 2.2rem;
+            }
+            
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">ANTENNAR</a>
+            <ul class="nav-links">
+                <li><a href="#technology">Technology</a></li>
+                <li><a href="#applications">Applications</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>RF-DC Powered MID Manufacturing</h1>
+                <p>We manufacture Moulded Interconnect Devices with integrated RF-to-DC conversion circuits. Your 3D parts become antennas that wirelessly charge their own batteries.</p>
+                <a href="#contact" class="cta-button">Order Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3>Antenna Integration</h3>
+                    <p>We use Laser Direct Structuring to create copper antenna traces directly on your 3D parts. The part's surface becomes the antenna, maximizing collection area and RF gain compared to external antennas.</p>
+                </div>
+                <div class="card">
+                    <h3>RF-DC Conversion</h3>
+                    <p>Integrated circuits convert collected RF energy to DC power, charging the device's battery. The RF-DC conversion efficiency scales with antenna surface area and optimal impedance matching.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="technical-section">
+        <div class="container">
+            <div class="technical-content">
+                <h2>Why This Works Now: Koomey's Law</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Koomey's Law states that the energy efficiency of computation doubles every 1.57 years. Since 1945, compute energy requirements have decreased by a factor of 100 billion. Modern electronics consume orders of magnitude less power than previous generations, creating a convergence point where RF-DC power output can meet device power requirements.
+                </p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">Low</span>
+                        <span class="stat-label">Power requirements of modern devices</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">Max</span>
+                        <span class="stat-label">Antenna surface area utilization</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">ISM</span>
+                        <span class="stat-label">Band operation (2.4/5 GHz)</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">RF-DC</span>
+                        <span class="stat-label">Conversion technology</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="applications" class="applications-section">
+        <div class="container">
+            <h2>Three Manufacturing Categories</h2>
+            <div class="grid grid-3">
+                <div class="application-card">
+                    <h3>OEMs</h3>
+                    <p class="subtitle">Device enclosures with integrated RF harvesting</p>
+                    <p>We manufacture enclosures, cases, and structural components where the part itself functions as both mechanical housing and RF collection antenna. The collected energy charges the device's internal battery through integrated RF-DC conversion circuits.</p>
+                    <ul>
+                        <li>Laptop cases with battery charging capability</li>
+                        <li>Smartphone shells with wireless power collection</li>
+                        <li>IoT sensor housings with continuous power</li>
+                        <li>Industrial monitoring device enclosures</li>
+                    </ul>
+                </div>
+                
+                <div class="application-card">
+                    <h3>Batteries</h3>
+                    <p class="subtitle">Battery enclosures as RF collection surfaces</p>
+                    <p>The battery case becomes the antenna system. This maximizes available surface area for RF collection while protecting battery cells. The case structure harvests RF energy to continuously charge the enclosed batteries.</p>
+                    <ul>
+                        <li>Self-charging battery packs</li>
+                        <li>Wireless power banks</li>
+                        <li>Continuous IoT power modules</li>
+                        <li>Emergency backup power systems</li>
+                    </ul>
+                </div>
+                
+                <div class="application-card">
+                    <h3>Solar PV Films</h3>
+                    <p class="subtitle">Solar panels with integrated RF collection</p>
+                    <p>We print MID antenna patterns directly onto solar panel films using our process technology. The panels harvest both photovoltaic and RF energy simultaneously. The RF antenna traces are integrated within the solar cell's existing copper interconnect structure.</p>
+                    <ul>
+                        <li>Solar panels with RF energy collection</li>
+                        <li>Indoor energy harvesting films</li>
+                        <li>Flexible dual-mode power films</li>
+                        <li>Building-integrated energy systems</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="section">
+        <div class="container">
+            <h2>Manufacturing Process</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 4rem; color: #64748b;">
+                Similar to PCB manufacturers like PCBWay and JLCPCB, but specialized for RF-DC MID components
+            </p>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Upload & Design</h3>
+                    <p>Submit files (STL, Gerber, specs). We optimize antenna geometry and RF collection efficiency for your part geometry.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>LDS Manufacturing</h3>
+                    <p>Laser Direct Structuring creates copper traces on injection-molded parts. RF-DC circuits assembled via SMT processes.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Test & Deliver</h3>
+                    <p>RF performance testing, power conversion verification, regulatory compliance. Complete MID parts with matching transmitters delivered.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Technical Specifications & Orders</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 3rem;">
+                Submit your designs for RF-DC MID manufacturing. We handle complex 3D geometries with integrated wireless charging capability.
+            </p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Engineering Contact</h3>
+                    <p>technical@antennar.com</p>
+                    <p style="margin-top: 1rem; color: #94a3b8;">RF design specifications, power requirements, geometry optimization</p>
+                </div>
+                <div class="contact-card">
+                    <h3>Manufacturing Location</h3>
+                    <p>Johannesburg, South Africa<br>San Francisco, USA</p>
+                    <p style="margin-top: 1rem; color: #94a3b8;">Production facilities and technical support</p>
+                </div>
+                <div class="contact-card">
+                    <h3>File Upload Portal</h3>
+                    <p>STL, Gerber, and specification files</p>
+                    <p style="margin-top: 1rem; color: #94a3b8;">Automated quoting and manufacturing workflow</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 4rem;">
+                <a href="mailto:technical@antennar.com" class="cta-button">Order Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #020617; color: #94a3b8; text-align: center; padding: 3rem; border-top: 1px solid #1e293b;">
+        <div class="container">
+            <p>&copy; 2025 ANTENNAR (PTY) LTD. All rights reserved.</p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">Laser Direct Structuring • Moulded Interconnect Devices • RF-DC Power Conversion • ISM Band Operation</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .process-step, .application-card, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
